@@ -1,0 +1,18 @@
+{
+  "name": "NodeJS_2-TS-Express_(api)",
+  "version": "1.0.0",
+  "description": "API NodeJS + Typescript",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev ./src/index.ts"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.2.2"
+  }
+}
