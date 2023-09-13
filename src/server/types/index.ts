@@ -1,11 +1,13 @@
 import { RequestHandler } from "express";
-import { Schema } from "yup";
+import { AnyObject, Maybe, ObjectSchema } from "yup";
 
 export type TProperty = "body" | "header" | "params" | "query";
 
-type TAllSchemas = Record<TProperty, Schema<unknown>>;
+type TAllSchemas = Record<TProperty, ObjectSchema<any>>;
 
-type TGetSchema = <T>(schema: Schema<T>) => Schema<T>;
+type TGetSchema = <T extends Maybe<AnyObject>>(
+  schema: ObjectSchema<T>
+) => ObjectSchema<T>;
 
 type TGetAllSchemas = (getSchema: TGetSchema) => Partial<TAllSchemas>;
 
