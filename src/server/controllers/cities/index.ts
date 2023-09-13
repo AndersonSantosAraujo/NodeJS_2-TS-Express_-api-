@@ -1,5 +1,5 @@
 import * as create from "./create.controller";
 
-export const CitiesController = {
+export const citiesController = {
   ...create,
 };

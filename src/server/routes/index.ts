@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { CitiesController } from "../controllers/";
+import { citiesController } from "../controllers/";
 
 const router = Router();
 
@@ -12,9 +12,8 @@ router.get("/", (_, res) => {
 
 router.post(
   "/cities",
-  CitiesController.createBodyValidator,
-  CitiesController.createQueryValidator,
-  CitiesController.create
+  citiesController.createValidation,
+  citiesController.create
 );
 
 export { router };
