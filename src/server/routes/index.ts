@@ -1,19 +1,15 @@
 import { Router } from "express";
-import { StatusCodes } from "http-status-codes";
+import { CitiesController } from "../controllers/";
 
 const router = Router();
 
 router.get("/", (_, res) => {
   return res.send({
-    title: "Node Store API",
+    title: "NodeJS (Typescript + Express) API",
     version: "0.0.1",
   });
 });
 
-router.post("/test/:id", (req, res) => {
-  console.log(req.params);
-
-  return res.status(StatusCodes.ACCEPTED).json(req.body);
-});
+router.post("/cities", CitiesController.create);
 
 export { router };
