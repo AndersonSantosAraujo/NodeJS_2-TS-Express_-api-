@@ -12,14 +12,20 @@ export const create = async (req: Request<{}, {}, ICity>, res: Response) => {
 
   // Yup Validation ->
   try {
-    validateData = await bodyValidation.validate(req.body);
-  } catch (error) {
-    const yupError = error as yup.ValidationError;
+    validateData = await bodyValidation.validate(req.body, {
+      abortEarly: false,
+    });
+  } catch (err) {
+    const yupError = err as yup.ValidationError;
+    const errors: Record<string, string> = {};
 
-    return res.json({
-      errors: {
-        default: yupError.message,
-      },
+    yupError.inner.forEach((error) => {
+      if (!error.path) return;
+      errors[error.path] = error.message;
+    });
+
+    return res.status(StatusCodes.BAD_REQUEST).json({
+      errors,
     });
   }
   // <- Yup Validation
