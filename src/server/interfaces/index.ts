@@ -2,6 +2,8 @@ export interface ICity {
   name: string;
 }
 
-export interface IFilter {
+export interface IQueryProps {
+  page?: number;
+  limit?: number;
   filter?: string;
 }

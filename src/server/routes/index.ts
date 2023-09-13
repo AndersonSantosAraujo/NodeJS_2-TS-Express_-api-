@@ -3,6 +3,7 @@ import { citiesController } from "../controllers/";
 
 const router = Router();
 
+// Routes ->
 router.get("/", (_, res) => {
   return res.send({
     title: "NodeJS (Typescript + Express) API",
@@ -15,5 +16,12 @@ router.post(
   citiesController.createValidation,
   citiesController.create
 );
+
+router.get(
+  "/cities",
+  citiesController.getAllValidation,
+  citiesController.getAll
+);
+// <- Routes
 
 export { router };
