@@ -24,5 +24,5 @@ export const getAll: RequestHandler = async (
 
   return res
     .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .send("Não implementado!");
+    .send("GET ALL: Não implementado!");
 };
