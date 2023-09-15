@@ -15,9 +15,17 @@ export const getByIdValidation = validation((getSchema) => ({
 // <- Middlewares
 
 export const getById = async (req: Request<IParamProps>, res: Response) => {
-  console.log(req.params);
+  // Temp Data ->
+  if (Number(req.params.id) === 99999)
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: "Registro não encontrado!",
+      },
+    });
+  // <- Temp Data
 
-  return res
-    .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .send("GET BY ID: Não implementado!");
+  return res.status(StatusCodes.OK).json({
+    id: req.params.id,
+    name: "Diadema",
+  });
 };

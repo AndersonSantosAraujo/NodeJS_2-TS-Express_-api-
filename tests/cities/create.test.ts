@@ -5,7 +5,7 @@ describe("Cities - Create", () => {
   // Test 1 ->
   it("Criar um registro de cidade", async () => {
     const res = await testServer.post("/cities").send({
-      name: "Campinas",
+      name: "Diadema",
     });
 
     expect(res.statusCode).toEqual(StatusCodes.CREATED);
@@ -16,7 +16,7 @@ describe("Cities - Create", () => {
   // Test 2 ->
   it("Tentar criar um registro de cidade com nome curto", async () => {
     const res = await testServer.post("/cities").send({
-      name: "Ca",
+      name: "Di",
     });
 
     expect(res.statusCode).toEqual(StatusCodes.BAD_REQUEST);
