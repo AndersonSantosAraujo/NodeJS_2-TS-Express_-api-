@@ -15,7 +15,7 @@ if (process.env.IS_LOCALHOST !== "true") {
     .then(() => {
       startServer();
     })
-    .catch(() => console.log);
+    .catch((err) => console.log(err));
 } else {
   startServer();
 }
