@@ -3,6 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { IParamProps, IBodyProps } from "../../interfaces";
+import { citiesProvider } from "../../database/providers";
 
 // Middlewares ->
 export const updateByIdValidation = validation((getSchema) => ({
@@ -23,14 +24,22 @@ export const updateById = async (
   req: Request<IParamProps, {}, IBodyProps>,
   res: Response
 ) => {
-  // Temp Data ->
-  if (Number(req.params.id) === 99999)
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+  if (!req.params.id) {
+    return res.status(StatusCodes.BAD_REQUEST).json({
       errors: {
-        default: "Registro não encontrado!",
+        default: "O parâmetro 'id' precisa ser informado.",
       },
     });
-  // <- Temp Data
+  }
 
-  return res.status(StatusCodes.NO_CONTENT).send();
+  const result = await citiesProvider.updateById(req.params.id, req.body);
+  if (result instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: result.message,
+      },
+    });
+  }
+
+  return res.status(StatusCodes.NO_CONTENT).json(result);
 };

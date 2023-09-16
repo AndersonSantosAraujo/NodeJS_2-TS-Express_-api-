@@ -15,7 +15,7 @@ const knex_1 = require("../knex");
 const count = (filter = "") => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const [{ count }] = yield (0, knex_1.Knex)(enums_1.TableNames.city)
-            .where("nome", "like", `%${filter}%`)
+            .where("name", "like", `%${filter}%`)
             .count("* as count");
         if (Number.isInteger(Number(count)))
             return Number(count);

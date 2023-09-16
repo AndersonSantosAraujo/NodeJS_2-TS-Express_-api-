@@ -29,4 +29,5 @@ const getAll = __importStar(require("./getAll.provider"));
 const getById = __importStar(require("./getById.provider"));
 const deleteById = __importStar(require("./delete.provider"));
 const updateById = __importStar(require("./update.provider"));
-exports.citiesProvider = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, create), getAll), getById), deleteById), updateById);
+const count = __importStar(require("./count.provider"));
+exports.citiesProvider = Object.assign(Object.assign(Object.assign(Object.assign(Object.assign(Object.assign({}, create), getAll), getById), deleteById), updateById), count);

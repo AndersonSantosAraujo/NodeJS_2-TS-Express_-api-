@@ -17,7 +17,7 @@ const getAll = (page, limit, filter, id = 0) => __awaiter(void 0, void 0, void 0
         const result = yield (0, knex_1.Knex)(enums_1.TableNames.city)
             .select("*")
             .where("id", Number(id))
-            .orWhere("nome", "like", `%${filter}%`)
+            .orWhere("name", "like", `%${filter}%`)
             .offset((page - 1) * limit)
             .limit(limit);
         if (id > 0 && result.every((item) => item.id !== id)) {

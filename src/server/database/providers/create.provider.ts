@@ -13,9 +13,9 @@ export const create = async (
     } else if (typeof result === "number") {
       return result;
     }
-    return new Error("Erro ao cadastrar registro!");
+    return new Error("Erro ao tentar cadastrar registro!");
   } catch (error) {
     console.log(error);
-    return new Error("Erro ao cadastrar registro!");
+    return new Error("Erro ao tentar cadastrar registro!");
   }
 };
