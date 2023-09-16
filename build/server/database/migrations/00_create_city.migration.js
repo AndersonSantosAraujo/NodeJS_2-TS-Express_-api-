@@ -16,7 +16,7 @@ function up(knex) {
         knex.schema
             .createTable(enums_1.TableNames.city, (table) => {
             table.bigIncrements("id").primary().index();
-            table.string("name", 150).index().notNullable();
+            table.string("name", 150).checkLength("<=", 150).index().notNullable();
             table.comment("Tabela usada para armazenar cidades do sistema.");
         })
             .then(() => {
