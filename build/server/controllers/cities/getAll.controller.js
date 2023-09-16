@@ -50,11 +50,6 @@ const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.setHeader("access-control-expose-headers", "x-total-count");
     res.setHeader("x-total-count", 1);
     // <- Temp Res
-    return res.status(http_status_codes_1.StatusCodes.OK).json([
-        {
-            id: 1,
-            name: "Diadema",
-        },
-    ]);
+    return res.status(http_status_codes_1.StatusCodes.OK).json(res);
 });
 exports.getAll = getAll;

@@ -1,5 +1,5 @@
 import { TableNames } from "../../enums";
-import { ICity } from "../../interfaces";
+import { ICity } from "../models";
 import { Knex } from "../knex";
 
 export const create = async (

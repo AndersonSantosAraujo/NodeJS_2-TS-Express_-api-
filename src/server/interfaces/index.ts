@@ -1,3 +1,5 @@
+import { ICity } from "../database/models";
+
 export interface IQueryProps {
   page?: number;
   limit?: number;
@@ -6,11 +8,6 @@ export interface IQueryProps {
 
 export interface IParamProps {
   id?: number;
-}
-
-export interface ICity {
-  id: number;
-  name: string;
 }
 
 export interface IBodyProps extends Omit<ICity, "id"> {}

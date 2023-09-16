@@ -25,10 +25,5 @@ export const getAll: RequestHandler = async (
   res.setHeader("x-total-count", 1);
   // <- Temp Res
 
-  return res.status(StatusCodes.OK).json([
-    {
-      id: 1,
-      name: "Diadema",
-    },
-  ]);
+  return res.status(StatusCodes.OK).json(res);
 };
