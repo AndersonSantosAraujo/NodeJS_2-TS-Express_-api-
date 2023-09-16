@@ -18,7 +18,6 @@ export const create: RequestHandler = async (
   req: Request<{}, {}, IBodyProps>,
   res: Response
 ) => {
-  console.log(req.body);
-
+  //
   return res.status(StatusCodes.CREATED).json(1);
 };

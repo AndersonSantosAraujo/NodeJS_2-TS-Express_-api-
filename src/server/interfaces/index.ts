@@ -8,6 +8,9 @@ export interface IParamProps {
   id?: number;
 }
 
-export interface IBodyProps {
+export interface ICity {
+  id: number;
   name: string;
 }
+
+export interface IBodyProps extends Omit<ICity, "id"> {}
