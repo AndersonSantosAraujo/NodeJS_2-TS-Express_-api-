@@ -8,13 +8,14 @@ const startServer = () => {
         console.log(`Server running on http://localhost:${port}/`);
     });
 };
-// if (process.env.IS_LOCALHOST !== "true") {
-knex_1.Knex.migrate
-    .latest()
-    .then(() => {
+if (process.env.IS_LOCALHOST !== "true") {
+    knex_1.Knex.migrate
+        .latest()
+        .then(() => {
+        startServer();
+    })
+        .catch(console.log);
+}
+else {
     startServer();
-})
-    .catch(console.log);
-// } else {
-//   startServer();
-// }
+}
