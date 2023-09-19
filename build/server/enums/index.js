@@ -4,4 +4,5 @@ exports.TableNames = void 0;
 var TableNames;
 (function (TableNames) {
     TableNames["city"] = "city";
+    TableNames["people"] = "people";
 })(TableNames || (exports.TableNames = TableNames = {}));

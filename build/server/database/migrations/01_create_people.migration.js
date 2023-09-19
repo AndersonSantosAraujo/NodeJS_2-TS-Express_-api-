@@ -14,21 +14,30 @@ const enums_1 = require("../../enums");
 function up(knex) {
     return __awaiter(this, void 0, void 0, function* () {
         knex.schema
-            .createTable(enums_1.TableNames.city, (table) => {
+            .createTable(enums_1.TableNames.people, (table) => {
             table.bigIncrements("id").primary().index();
-            table.string("name", 150).checkLength("<=", 150).index().notNullable();
-            table.comment("Tabela usada para armazenar cidades no sistema.");
+            table.string("fullname").index().notNullable();
+            table.string("email").unique().notNullable();
+            table
+                .bigInteger("cityId")
+                .index()
+                .notNullable()
+                .references("id")
+                .inTable(enums_1.TableNames.city)
+                .onUpdate("CASCADE")
+                .onDelete("RESTRICT");
+            table.comment("Tabela usada para armazenar pessoas no sistema.");
         })
             .then(() => {
-            console.log(`# Tabela Criada: ${enums_1.TableNames.city}`);
+            console.log(`# Tabela Criada: ${enums_1.TableNames.people}`);
         });
     });
 }
 exports.up = up;
 function down(knex) {
     return __awaiter(this, void 0, void 0, function* () {
-        return knex.schema.dropTable(enums_1.TableNames.city).then(() => {
-            console.log(`# Tabela Descartada: ${enums_1.TableNames.city}`);
+        return knex.schema.dropTable(enums_1.TableNames.people).then(() => {
+            console.log(`# Tabela Descartada: ${enums_1.TableNames.people}`);
         });
     });
 }
