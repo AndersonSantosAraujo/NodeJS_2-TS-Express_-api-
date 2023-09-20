@@ -10,11 +10,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteById = void 0;
-const enums_1 = require("../../enums");
-const knex_1 = require("../knex");
+const enums_1 = require("../../../enums");
+const knex_1 = require("../../knex");
 const deleteById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield (0, knex_1.Knex)(enums_1.TableNames.city).where("id", "=", id).del();
+        const result = yield (0, knex_1.Knex)(enums_1.TableNames.people).where("id", "=", id).del();
         if (result > 0)
             return;
         return new Error("Erro ao tentar apagar registro!");

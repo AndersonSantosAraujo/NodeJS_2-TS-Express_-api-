@@ -36,7 +36,7 @@ exports.updateById = exports.updateByIdValidation = void 0;
 const http_status_codes_1 = require("http-status-codes");
 const yup = __importStar(require("yup"));
 const middlewares_1 = require("../../shared/middlewares");
-const providers_1 = require("../../database/providers");
+const cities_1 = require("../../database/providers/cities");
 // Middlewares ->
 exports.updateByIdValidation = (0, middlewares_1.validation)((getSchema) => ({
     body: getSchema(yup.object().shape({
@@ -55,7 +55,7 @@ const updateById = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             },
         });
     }
-    const result = yield providers_1.citiesProvider.updateById(req.params.id, req.body);
+    const result = yield cities_1.citiesProvider.updateById(req.params.id, req.body);
     if (result instanceof Error) {
         return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: {

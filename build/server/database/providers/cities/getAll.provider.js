@@ -9,22 +9,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getById = void 0;
-const enums_1 = require("../../enums");
-const knex_1 = require("../knex");
-const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getAll = void 0;
+const enums_1 = require("../../../enums");
+const knex_1 = require("../../knex");
+const getAll = (page, limit, filter, id = 0) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield (0, knex_1.Knex)(enums_1.TableNames.city)
             .select("*")
-            .where("id", "=", id)
-            .first();
-        if (result)
-            return result;
-        return new Error("Registro não encontrado!");
+            .where("id", Number(id))
+            .orWhere("name", "like", `%${filter}%`)
+            .offset((page - 1) * limit)
+            .limit(limit);
+        if (id > 0 && result.every((item) => item.id !== id)) {
+            const result_ = yield (0, knex_1.Knex)(enums_1.TableNames.city)
+                .select("*")
+                .where("id", "=", id)
+                .first();
+            if (result_)
+                return [...result, result_];
+        }
+        return result;
     }
     catch (error) {
         console.log(error);
-        return new Error("Registro não encontrado!");
+        return new Error("Erro ao tentar consultar registros!");
     }
 });
-exports.getById = getById;
+exports.getAll = getAll;

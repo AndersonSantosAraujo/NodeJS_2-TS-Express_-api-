@@ -1,6 +1,6 @@
-import { TableNames } from "../../enums";
-import { ICity } from "../models";
-import { Knex } from "../knex";
+import { TableNames } from "../../../enums";
+import { ICity } from "../../models";
+import { Knex } from "../../knex";
 
 export const create = async (
   city: Omit<ICity, "id">
@@ -13,6 +13,7 @@ export const create = async (
     } else if (typeof result === "number") {
       return result;
     }
+
     return new Error("Erro ao tentar cadastrar registro!");
   } catch (error) {
     console.log(error);

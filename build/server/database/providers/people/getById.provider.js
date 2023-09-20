@@ -9,23 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.create = void 0;
-const enums_1 = require("../../enums");
-const knex_1 = require("../knex");
-const create = (city) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getById = void 0;
+const enums_1 = require("../../../enums");
+const knex_1 = require("../../knex");
+const getById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const [result] = yield (0, knex_1.Knex)(enums_1.TableNames.city).insert(city).returning("id");
-        if (typeof result === "object") {
-            return result.id;
-        }
-        else if (typeof result === "number") {
+        const result = yield (0, knex_1.Knex)(enums_1.TableNames.people)
+            .select("*")
+            .where("id", "=", id)
+            .first();
+        if (result)
             return result;
-        }
-        return new Error("Erro ao tentar cadastrar registro!");
+        return new Error("Registro não encontrado!");
     }
     catch (error) {
         console.log(error);
-        return new Error("Erro ao tentar cadastrar registro!");
+        return new Error("Registro não encontrado!");
     }
 });
-exports.create = create;
+exports.getById = getById;

@@ -1,6 +1,6 @@
-import { TableNames } from "../../enums";
-import { ICity } from "../models";
-import { Knex } from "../knex";
+import { TableNames } from "../../../enums";
+import { ICity } from "../../models";
+import { Knex } from "../../knex";
 
 export const updateById = async (
   id: number,

@@ -9,21 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateById = void 0;
-const enums_1 = require("../../enums");
-const knex_1 = require("../knex");
-const updateById = (id, city) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getAll = void 0;
+const enums_1 = require("../../../enums");
+const knex_1 = require("../../knex");
+const getAll = (page, limit, filter) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield (0, knex_1.Knex)(enums_1.TableNames.city)
-            .update(city)
-            .where("id", "=", id);
-        if (result > 0)
-            return;
-        return new Error("Erro ao tentar atualizar registro!");
+        const result = yield (0, knex_1.Knex)(enums_1.TableNames.people)
+            .select("*")
+            .where("fullname", "like", `%${filter}%`)
+            .offset((page - 1) * limit)
+            .limit(limit);
+        return result;
     }
     catch (error) {
         console.log(error);
-        return new Error("Erro ao tentar atualizar registro!");
+        return new Error("Erro ao tentar consultar registros!");
     }
 });
-exports.updateById = updateById;
+exports.getAll = getAll;

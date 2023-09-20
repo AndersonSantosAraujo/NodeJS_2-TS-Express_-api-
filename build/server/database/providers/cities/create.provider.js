@@ -9,21 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.count = void 0;
-const enums_1 = require("../../enums");
-const knex_1 = require("../knex");
-const count = (filter = "") => __awaiter(void 0, void 0, void 0, function* () {
+exports.create = void 0;
+const enums_1 = require("../../../enums");
+const knex_1 = require("../../knex");
+const create = (city) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const [{ count }] = yield (0, knex_1.Knex)(enums_1.TableNames.city)
-            .where("name", "like", `%${filter}%`)
-            .count("* as count");
-        if (Number.isInteger(Number(count)))
-            return Number(count);
-        return new Error("Erro ao tentar consultar a quantidade total de registros!");
+        const [result] = yield (0, knex_1.Knex)(enums_1.TableNames.city).insert(city).returning("id");
+        if (typeof result === "object") {
+            return result.id;
+        }
+        else if (typeof result === "number") {
+            return result;
+        }
+        return new Error("Erro ao tentar cadastrar registro!");
     }
     catch (error) {
         console.log(error);
-        return new Error("Erro ao tentar consultar a quantidade total de registros!");
+        return new Error("Erro ao tentar cadastrar registro!");
     }
 });
-exports.count = count;
+exports.create = create;

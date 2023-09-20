@@ -1,6 +1,6 @@
-import { TableNames } from "../../enums";
-import { ICity } from "../models";
-import { Knex } from "../knex";
+import { TableNames } from "../../../enums";
+import { ICity } from "../../models";
+import { Knex } from "../../knex";
 
 export const getAll = async (
   page: number,
@@ -28,6 +28,6 @@ export const getAll = async (
     return result;
   } catch (error) {
     console.log(error);
-    return new Error("Erro ao tentar consultar registro!");
+    return new Error("Erro ao tentar consultar registros!");
   }
 };

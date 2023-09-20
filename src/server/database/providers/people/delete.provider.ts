@@ -1,9 +1,9 @@
-import { TableNames } from "../../enums";
-import { Knex } from "../knex";
+import { TableNames } from "../../../enums";
+import { Knex } from "../../knex";
 
 export const deleteById = async (id: number): Promise<void | Error> => {
   try {
-    const result = await Knex(TableNames.city).where("id", "=", id).del();
+    const result = await Knex(TableNames.people).where("id", "=", id).del();
 
     if (result > 0) return;
 

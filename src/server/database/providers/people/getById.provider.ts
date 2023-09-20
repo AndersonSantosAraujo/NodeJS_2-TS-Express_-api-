@@ -1,10 +1,10 @@
-import { TableNames } from "../../enums";
-import { ICity } from "../models";
-import { Knex } from "../knex";
+import { TableNames } from "../../../enums";
+import { IPeople } from "../../models";
+import { Knex } from "../../knex";
 
-export const getById = async (id: number): Promise<ICity | Error> => {
+export const getById = async (id: number): Promise<IPeople | Error> => {
   try {
-    const result = await Knex(TableNames.city)
+    const result = await Knex(TableNames.people)
       .select("*")
       .where("id", "=", id)
       .first();

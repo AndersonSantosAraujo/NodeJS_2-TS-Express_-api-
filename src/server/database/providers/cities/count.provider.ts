@@ -1,5 +1,5 @@
-import { TableNames } from "../../enums";
-import { Knex } from "../knex";
+import { TableNames } from "../../../enums";
+import { Knex } from "../../knex";
 
 export const count = async (filter = ""): Promise<number | Error> => {
   try {

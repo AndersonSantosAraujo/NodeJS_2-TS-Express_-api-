@@ -36,7 +36,7 @@ exports.getAll = exports.getAllValidation = void 0;
 const http_status_codes_1 = require("http-status-codes");
 const yup = __importStar(require("yup"));
 const middlewares_1 = require("../../shared/middlewares");
-const providers_1 = require("../../database/providers");
+const cities_1 = require("../../database/providers/cities");
 // Middlewares ->
 exports.getAllValidation = (0, middlewares_1.validation)((getSchema) => ({
     query: getSchema(yup.object().shape({
@@ -48,8 +48,8 @@ exports.getAllValidation = (0, middlewares_1.validation)((getSchema) => ({
 }));
 // <- Middlewares
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield providers_1.citiesProvider.getAll(req.query.page || 1, req.query.limit || 7, req.query.filter || "", Number(req.query.id));
-    const count = yield providers_1.citiesProvider.count(req.query.filter);
+    const result = yield cities_1.citiesProvider.getAll(req.query.page || 1, req.query.limit || 7, req.query.filter || "", Number(req.query.id));
+    const count = yield cities_1.citiesProvider.count(req.query.filter);
     if (result instanceof Error) {
         return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: { default: result.message },
