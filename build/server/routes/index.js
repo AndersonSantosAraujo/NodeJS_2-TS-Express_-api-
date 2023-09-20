@@ -20,3 +20,10 @@ router.get("/cities", controllers_1.citiesController.getAllValidation, controlle
 router.get("/cities/:id", controllers_1.citiesController.getByIdValidation, controllers_1.citiesController.getById);
 router.put("/cities/:id", controllers_1.citiesController.updateByIdValidation, controllers_1.citiesController.updateById);
 router.delete("/cities/:id", controllers_1.citiesController.deleteByIdValidation, controllers_1.citiesController.deleteById);
+//<- Cities
+// People ->
+router.post("/people", controllers_1.peopleController.createValidation, controllers_1.peopleController.create);
+router.get("/people", controllers_1.peopleController.getAllValidation, controllers_1.peopleController.getAll);
+router.get("/people/:id", controllers_1.peopleController.getByIdValidation, controllers_1.peopleController.getById);
+router.put("/people/:id", controllers_1.peopleController.updateByIdValidation, controllers_1.peopleController.updateById);
+router.delete("/people/:id", controllers_1.peopleController.deleteByIdValidation, controllers_1.peopleController.deleteById);

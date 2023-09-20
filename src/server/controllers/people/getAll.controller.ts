@@ -1,15 +1,14 @@
 import { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
-import { IQueryPropsCity } from "../../interfaces";
+import { IQueryPropsPeople } from "../../interfaces";
 import { validation } from "../../shared/middlewares";
-import { citiesProvider } from "../../database/providers/cities";
+import { peopleProvider } from "../../database/providers/people";
 
 // Middlewares ->
 export const getAllValidation = validation((getSchema) => ({
-  query: getSchema<IQueryPropsCity>(
+  query: getSchema<IQueryPropsPeople>(
     yup.object().shape({
-      id: yup.number().integer().optional().default(0),
       page: yup.number().optional().moreThan(0),
       limit: yup.number().optional().moreThan(0),
       filter: yup.string().optional(),
@@ -19,16 +18,15 @@ export const getAllValidation = validation((getSchema) => ({
 // <- Middlewares
 
 export const getAll: RequestHandler = async (
-  req: Request<{}, {}, {}, IQueryPropsCity>,
+  req: Request<{}, {}, {}, IQueryPropsPeople>,
   res: Response
 ) => {
-  const result = await citiesProvider.getAll(
+  const result = await peopleProvider.getAll(
     req.query.page || 1,
     req.query.limit || 7,
-    req.query.filter || "",
-    Number(req.query.id)
+    req.query.filter || ""
   );
-  const count = await citiesProvider.count(req.query.filter);
+  const count = await peopleProvider.count(req.query.filter);
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

@@ -1,25 +1,27 @@
 import { Request, RequestHandler, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import * as yup from "yup";
-import { IBodyPropsCity } from "../../interfaces";
+import { IBodyPropsPeople } from "../../interfaces";
 import { validation } from "../../shared/middlewares";
-import { citiesProvider } from "../../database/providers/cities";
+import { peopleProvider } from "../../database/providers/people";
 
 // Middlewares ->
 export const createValidation = validation((getSchema) => ({
-  body: getSchema<IBodyPropsCity>(
+  body: getSchema<IBodyPropsPeople>(
     yup.object().shape({
-      name: yup.string().required().min(3).max(150),
+      fullname: yup.string().required().min(3),
+      email: yup.string().required().email(),
+      cityId: yup.number().integer().required(),
     })
   ),
 }));
 // <- Middlewares
 
 export const create: RequestHandler = async (
-  req: Request<{}, {}, IBodyPropsCity>,
+  req: Request<{}, {}, IBodyPropsPeople>,
   res: Response
 ) => {
-  const result = await citiesProvider.create(req.body);
+  const result = await peopleProvider.create(req.body);
 
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
