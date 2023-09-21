@@ -13,7 +13,7 @@ exports.down = exports.up = void 0;
 const enums_1 = require("../../enums");
 function up(knex) {
     return __awaiter(this, void 0, void 0, function* () {
-        knex.schema
+        return knex.schema
             .createTable(enums_1.TableNames.city, (table) => {
             table.bigIncrements("id").primary().index();
             table.string("name", 150).checkLength("<=", 150).index().notNullable();

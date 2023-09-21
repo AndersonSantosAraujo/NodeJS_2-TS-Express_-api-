@@ -2,7 +2,7 @@ import { Knex } from "knex";
 import { TableNames } from "../../enums";
 
 export async function up(knex: Knex): Promise<void> {
-  knex.schema
+  return knex.schema
     .createTable(TableNames.people, (table) => {
       table.bigIncrements("id").primary().index();
       table.string("fullname").index().notNullable();

@@ -3,7 +3,7 @@ import { testServer } from "../jest.setup";
 
 describe("Cities - GetAll", () => {
   // Test 1 ->
-  it("Buscar todos os registros", async () => {
+  it("Buscar todos os registros de cidades", async () => {
     const res_ = await testServer.post("/cities").send({
       name: "Diadema",
     });
