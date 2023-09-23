@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { IBodyPropsUserT } from "../../interfaces";
 import { usersProvider } from "../../database/providers/users";
+import { passwordCrypto } from "../../shared/services";
 
 // Middlewares ->
 export const signInValidation = validation((getSchema) => ({
@@ -32,7 +33,12 @@ export const signIn = async (
     });
   }
 
-  if (password !== result.password) {
+  const passwordMatch = await passwordCrypto.verifyPassword(
+    password,
+    result.password
+  );
+
+  if (!passwordMatch) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
       errors: {
         default: "Email ou senha são inválidos",

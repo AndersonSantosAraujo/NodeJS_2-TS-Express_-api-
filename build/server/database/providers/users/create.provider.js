@@ -12,9 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.create = void 0;
 const enums_1 = require("../../../enums");
 const knex_1 = require("../../knex");
+const services_1 = require("../../../shared/services");
 const create = (user) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const [result] = yield (0, knex_1.Knex)(enums_1.TableNames.user).insert(user).returning("id");
+        const hashedPassword = yield services_1.passwordCrypto.hashPassword(user.password);
+        const [result] = yield (0, knex_1.Knex)(enums_1.TableNames.user)
+            .insert(Object.assign(Object.assign({}, user), { password: hashedPassword }))
+            .returning("id");
         if (typeof result === "object") {
             return result.id;
         }

@@ -37,6 +37,7 @@ const http_status_codes_1 = require("http-status-codes");
 const yup = __importStar(require("yup"));
 const middlewares_1 = require("../../shared/middlewares");
 const users_1 = require("../../database/providers/users");
+const services_1 = require("../../shared/services");
 // Middlewares ->
 exports.signInValidation = (0, middlewares_1.validation)((getSchema) => ({
     body: getSchema(yup.object().shape({
@@ -55,7 +56,8 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             },
         });
     }
-    if (password !== result.password) {
+    const passwordMatch = yield services_1.passwordCrypto.verifyPassword(password, result.password);
+    if (!passwordMatch) {
         return res.status(http_status_codes_1.StatusCodes.UNAUTHORIZED).json({
             errors: {
                 default: "Email ou senha são inválidos",
