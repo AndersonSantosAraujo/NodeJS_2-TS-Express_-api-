@@ -4,6 +4,7 @@ import {
   peopleController,
   usersController,
 } from "../controllers/";
+import { authenticator } from "../shared/middlewares";
 
 const router = Router();
 
@@ -20,30 +21,35 @@ router.get("/", (_, res) => {
 // Cities ->
 router.post(
   "/cities",
+  authenticator,
   citiesController.createValidation,
   citiesController.create
 );
 
 router.get(
   "/cities",
+  authenticator,
   citiesController.getAllValidation,
   citiesController.getAll
 );
 
 router.get(
   "/cities/:id",
+  authenticator,
   citiesController.getByIdValidation,
   citiesController.getById
 );
 
 router.put(
   "/cities/:id",
+  authenticator,
   citiesController.updateByIdValidation,
   citiesController.updateById
 );
 
 router.delete(
   "/cities/:id",
+  authenticator,
   citiesController.deleteByIdValidation,
   citiesController.deleteById
 );
@@ -52,30 +58,35 @@ router.delete(
 // People ->
 router.post(
   "/people",
+  authenticator,
   peopleController.createValidation,
   peopleController.create
 );
 
 router.get(
   "/people",
+  authenticator,
   peopleController.getAllValidation,
   peopleController.getAll
 );
 
 router.get(
   "/people/:id",
+  authenticator,
   peopleController.getByIdValidation,
   peopleController.getById
 );
 
 router.put(
   "/people/:id",
+  authenticator,
   peopleController.updateByIdValidation,
   peopleController.updateById
 );
 
 router.delete(
   "/people/:id",
+  authenticator,
   peopleController.deleteByIdValidation,
   peopleController.deleteById
 );
