@@ -16,9 +16,9 @@ function up(knex) {
         return knex.schema
             .createTable(enums_1.TableNames.user, (table) => {
             table.bigIncrements("id").primary().index();
-            table.string("name").notNullable().checkLength(">", 3);
-            table.string("email").index().unique().notNullable().checkLength(">", 5);
-            table.string("senha").notNullable().checkLength(">", 6);
+            table.string("name").notNullable().checkLength(">=", 3);
+            table.string("email").index().unique().notNullable().checkLength(">=", 5);
+            table.string("password").notNullable().checkLength(">=", 6);
             table.comment("Tabela usada para armazenar usuários no sistema.");
         })
             .then(() => {

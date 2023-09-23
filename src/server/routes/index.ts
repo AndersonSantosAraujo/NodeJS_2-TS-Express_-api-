@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { citiesController, peopleController } from "../controllers/";
+import {
+  citiesController,
+  peopleController,
+  usersController,
+} from "../controllers/";
 
 const router = Router();
 
@@ -76,6 +80,20 @@ router.delete(
   peopleController.deleteById
 );
 //<- People
+
+// Users ->
+router.post(
+  "/signup",
+  usersController.signUpValidation,
+  usersController.signUp
+);
+
+router.post(
+  "/signin",
+  usersController.signInValidation,
+  usersController.signIn
+);
+//<- Users
 
 // <- Routes
 

@@ -27,3 +27,7 @@ router.get("/people", controllers_1.peopleController.getAllValidation, controlle
 router.get("/people/:id", controllers_1.peopleController.getByIdValidation, controllers_1.peopleController.getById);
 router.put("/people/:id", controllers_1.peopleController.updateByIdValidation, controllers_1.peopleController.updateById);
 router.delete("/people/:id", controllers_1.peopleController.deleteByIdValidation, controllers_1.peopleController.deleteById);
+//<- People
+// Users ->
+router.post("/signup", controllers_1.usersController.signUpValidation, controllers_1.usersController.signUp);
+router.post("/signin", controllers_1.usersController.signInValidation, controllers_1.usersController.signIn);
