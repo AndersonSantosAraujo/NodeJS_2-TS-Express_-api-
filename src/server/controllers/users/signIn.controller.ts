@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { validation } from "../../shared/middlewares";
 import { IBodyPropsUserT } from "../../interfaces";
 import { usersProvider } from "../../database/providers/users";
-import { passwordCrypto } from "../../shared/services";
+import { jwtToken, passwordCrypto } from "../../shared/services";
 
 // Middlewares ->
 export const signInValidation = validation((getSchema) => ({
@@ -23,9 +23,9 @@ export const signIn = async (
 ) => {
   const { email, password } = req.body;
 
-  const result = await usersProvider.getByEmail(email);
+  const user = await usersProvider.getByEmail(email);
 
-  if (result instanceof Error) {
+  if (user instanceof Error) {
     return res.status(StatusCodes.UNAUTHORIZED).json({
       errors: {
         default: "Email ou senha são inválidos",
@@ -35,7 +35,7 @@ export const signIn = async (
 
   const passwordMatch = await passwordCrypto.verifyPassword(
     password,
-    result.password
+    user.password
   );
 
   if (!passwordMatch) {
@@ -45,6 +45,16 @@ export const signIn = async (
       },
     });
   } else {
-    return res.status(StatusCodes.OK).json({ accessToken: "1234.5678.9012" });
+    const accessToken = jwtToken.sign({ uid: user.id });
+
+    if (accessToken === "JWT_SECRET_NOT_FOUND") {
+      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        errors: {
+          default: "Erro ao tentar gerar o token de acesso!",
+        },
+      });
+    }
+
+    return res.status(StatusCodes.OK).json({ accessToken });
   }
 };

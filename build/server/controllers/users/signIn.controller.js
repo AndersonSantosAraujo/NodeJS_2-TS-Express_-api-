@@ -48,15 +48,15 @@ exports.signInValidation = (0, middlewares_1.validation)((getSchema) => ({
 // <- Middlewares
 const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { email, password } = req.body;
-    const result = yield users_1.usersProvider.getByEmail(email);
-    if (result instanceof Error) {
+    const user = yield users_1.usersProvider.getByEmail(email);
+    if (user instanceof Error) {
         return res.status(http_status_codes_1.StatusCodes.UNAUTHORIZED).json({
             errors: {
                 default: "Email ou senha são inválidos",
             },
         });
     }
-    const passwordMatch = yield services_1.passwordCrypto.verifyPassword(password, result.password);
+    const passwordMatch = yield services_1.passwordCrypto.verifyPassword(password, user.password);
     if (!passwordMatch) {
         return res.status(http_status_codes_1.StatusCodes.UNAUTHORIZED).json({
             errors: {
@@ -65,7 +65,15 @@ const signIn = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     else {
-        return res.status(http_status_codes_1.StatusCodes.OK).json({ accessToken: "1234.5678.9012" });
+        const accessToken = services_1.jwtToken.sign({ uid: user.id });
+        if (accessToken === "JWT_SECRET_NOT_FOUND") {
+            return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).json({
+                errors: {
+                    default: "Erro ao tentar gerar o token de acesso!",
+                },
+            });
+        }
+        return res.status(http_status_codes_1.StatusCodes.OK).json({ accessToken });
     }
 });
 exports.signIn = signIn;

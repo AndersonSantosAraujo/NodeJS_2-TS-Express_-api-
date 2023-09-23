@@ -50,6 +50,9 @@ exports.getAllValidation = (0, middlewares_1.validation)((getSchema) => ({
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield cities_1.citiesProvider.getAll(req.query.page || 1, req.query.limit || 7, req.query.filter || "", Number(req.query.id));
     const count = yield cities_1.citiesProvider.count(req.query.filter);
+    // Debug ->
+    console.log("ID do Usuário -> ", req.headers.userID);
+    // <- Debug
     if (result instanceof Error) {
         return res.status(http_status_codes_1.StatusCodes.INTERNAL_SERVER_ERROR).json({
             errors: { default: result.message },

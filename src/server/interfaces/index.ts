@@ -24,3 +24,7 @@ export interface IBodyPropsPeople extends Omit<IPeople, "id"> {}
 export interface IBodyPropsUser extends Omit<IUser, "id"> {}
 
 export interface IBodyPropsUserT extends Omit<IUser, "id" | "name"> {}
+
+export interface IJwtData {
+  uid: number;
+}

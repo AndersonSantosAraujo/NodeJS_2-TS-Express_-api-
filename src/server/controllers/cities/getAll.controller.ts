@@ -30,6 +30,10 @@ export const getAll: RequestHandler = async (
   );
   const count = await citiesProvider.count(req.query.filter);
 
+  // Debug ->
+  console.log("ID do Usuário -> ", req.headers.userID);
+  // <- Debug
+
   if (result instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: { default: result.message },
