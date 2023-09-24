@@ -2,22 +2,46 @@ import { StatusCodes } from "http-status-codes";
 import { testServer } from "../jest.setup";
 
 describe("People - Create", () => {
-  let cityId: number | undefined = undefined;
+  let accessToken = "";
+
   beforeAll(async () => {
-    const res = await testServer.post("/cities").send({
-      name: "São Paulo",
+    await testServer.post("/signup").send({
+      name: "Test",
+      email: "test@test.com",
+      password: "123456",
     });
+
+    const res = await testServer.post("/signin").send({
+      email: "test@test.com",
+      password: "123456",
+    });
+
+    accessToken = res.body.accessToken;
+  });
+
+  let cityId: number | undefined = undefined;
+
+  beforeAll(async () => {
+    const res = await testServer
+      .post("/cities")
+      .set({ Authorization: `Bearer ${accessToken}` })
+      .send({
+        name: "São Paulo",
+      });
 
     cityId = res.body;
   });
 
   // Test 1 ->
   it("Criar um registro de pessoa", async () => {
-    const res = await testServer.post("/people").send({
-      fullname: "Anderson S A",
-      email: "anderson@anderson.com",
-      cityId: cityId,
-    });
+    const res = await testServer
+      .post("/people")
+      .set({ Authorization: `Bearer ${accessToken}` })
+      .send({
+        fullname: "Anderson S A",
+        email: "anderson@anderson.com",
+        cityId: cityId,
+      });
 
     expect(res.statusCode).toEqual(StatusCodes.CREATED);
     expect(typeof res.body).toEqual("number");
@@ -26,11 +50,14 @@ describe("People - Create", () => {
 
   // Test 2 ->
   it("Tentar criar um registro de pessoa com nome curto", async () => {
-    const res = await testServer.post("/people").send({
-      fullname: "An",
-      email: "anderson@anderson.com",
-      cityId: cityId,
-    });
+    const res = await testServer
+      .post("/people")
+      .set({ Authorization: `Bearer ${accessToken}` })
+      .send({
+        fullname: "An",
+        email: "anderson@anderson.com",
+        cityId: cityId,
+      });
 
     expect(res.statusCode).toEqual(StatusCodes.BAD_REQUEST);
     expect(res.body).toHaveProperty("errors.body.fullname");
@@ -39,11 +66,14 @@ describe("People - Create", () => {
 
   // Test 3 ->
   it("Tentar criar um registro de pessoa sem nome", async () => {
-    const res = await testServer.post("/people").send({
-      fullname: "",
-      email: "anderson@anderson.com",
-      cityId: cityId,
-    });
+    const res = await testServer
+      .post("/people")
+      .set({ Authorization: `Bearer ${accessToken}` })
+      .send({
+        fullname: "",
+        email: "anderson@anderson.com",
+        cityId: cityId,
+      });
 
     expect(res.statusCode).toEqual(StatusCodes.BAD_REQUEST);
     expect(res.body).toHaveProperty("errors.body.fullname");
@@ -52,11 +82,14 @@ describe("People - Create", () => {
 
   // Test 4 ->
   it("Tentar criar um registro de pessoa com email incorreto", async () => {
-    const res = await testServer.post("/people").send({
-      fullname: "Anderson",
-      email: "anderson.com",
-      cityId: cityId,
-    });
+    const res = await testServer
+      .post("/people")
+      .set({ Authorization: `Bearer ${accessToken}` })
+      .send({
+        fullname: "Anderson",
+        email: "anderson.com",
+        cityId: cityId,
+      });
 
     expect(res.statusCode).toEqual(StatusCodes.BAD_REQUEST);
     expect(res.body).toHaveProperty("errors.body.email");
@@ -65,20 +98,26 @@ describe("People - Create", () => {
 
   // Test 5 ->
   it("Tentar criar um registro de pessoa com e-mail já inserido", async () => {
-    const res_ = await testServer.post("/people").send({
-      fullname: "Anderson",
-      email: "anderson@gmail.com",
-      cityId: cityId,
-    });
+    const res_ = await testServer
+      .post("/people")
+      .set({ Authorization: `Bearer ${accessToken}` })
+      .send({
+        fullname: "Anderson",
+        email: "anderson@gmail.com",
+        cityId: cityId,
+      });
 
     expect(res_.statusCode).toEqual(StatusCodes.CREATED);
     expect(typeof res_.body).toEqual("number");
 
-    const res = await testServer.post("/people").send({
-      fullname: "Anderson",
-      email: "anderson@gmail.com",
-      cityId: 1,
-    });
+    const res = await testServer
+      .post("/people")
+      .set({ Authorization: `Bearer ${accessToken}` })
+      .send({
+        fullname: "Anderson",
+        email: "anderson@gmail.com",
+        cityId: 1,
+      });
 
     expect(res.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
     expect(res.body).toHaveProperty("errors.default");
@@ -87,11 +126,14 @@ describe("People - Create", () => {
 
   // Test 6 ->
   it("Tentar criar um registro de pessoa sem email", async () => {
-    const res = await testServer.post("/people").send({
-      fullname: "Anderson",
-      email: "",
-      cityId: cityId,
-    });
+    const res = await testServer
+      .post("/people")
+      .set({ Authorization: `Bearer ${accessToken}` })
+      .send({
+        fullname: "Anderson",
+        email: "",
+        cityId: cityId,
+      });
 
     expect(res.statusCode).toEqual(StatusCodes.BAD_REQUEST);
     expect(res.body).toHaveProperty("errors.body.email");
@@ -100,11 +142,14 @@ describe("People - Create", () => {
 
   // Test 7 ->
   it("Tentar criar um registro de pessoa com ID de cidade inexistente", async () => {
-    const res = await testServer.post("/people").send({
-      fullname: "Anderson",
-      email: "anderson@anderson.com",
-      cityId: 999999,
-    });
+    const res = await testServer
+      .post("/people")
+      .set({ Authorization: `Bearer ${accessToken}` })
+      .send({
+        fullname: "Anderson",
+        email: "anderson@anderson.com",
+        cityId: 999999,
+      });
 
     expect(res.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
     expect(res.body).toHaveProperty("errors.default");
@@ -113,11 +158,14 @@ describe("People - Create", () => {
 
   // Test 8 ->
   it("Tentar criar um registro de pessoa sem ID de cidade", async () => {
-    const res = await testServer.post("/people").send({
-      fullname: "Anderson",
-      email: "anderson@anderson.com",
-      cityId: "",
-    });
+    const res = await testServer
+      .post("/people")
+      .set({ Authorization: `Bearer ${accessToken}` })
+      .send({
+        fullname: "Anderson",
+        email: "anderson@anderson.com",
+        cityId: "",
+      });
 
     expect(res.statusCode).toEqual(StatusCodes.BAD_REQUEST);
     expect(res.body).toHaveProperty("errors.body.cityId");
@@ -126,7 +174,10 @@ describe("People - Create", () => {
 
   // Test 9 ->
   it("Tentar criar um registro sem nenhuma propriedade", async () => {
-    const res = await testServer.post("/people").send({});
+    const res = await testServer
+      .post("/people")
+      .set({ Authorization: `Bearer ${accessToken}` })
+      .send({});
 
     expect(res.statusCode).toEqual(StatusCodes.BAD_REQUEST);
     expect(res.body).toHaveProperty("errors.body.fullname");
@@ -134,4 +185,17 @@ describe("People - Create", () => {
     expect(res.body).toHaveProperty("errors.body.cityId");
   });
   // <- Test 9
+
+  // Test 10 ->
+  it("Tenta criar um registro de pessoa sem token de acesso", async () => {
+    const res = await testServer.post("/people").send({
+      fullname: "Anderson S A",
+      email: "anderson@anderson.com",
+      cityId: cityId,
+    });
+
+    expect(res.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
+    expect(res.body).toHaveProperty("errors.default");
+  });
+  // <- Test 10
 });
