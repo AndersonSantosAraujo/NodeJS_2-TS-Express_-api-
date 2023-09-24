@@ -640,6 +640,13 @@
     "semver" "^7.3.5"
     "tar" "^6.1.11"
 
+"@neondatabase/serverless@0.6.0":
+  "integrity" "sha512-qXxBRYN0m2v8kVQBfMxbzNGn2xFAhTXFibzQlE++NfJ56Shz3m7+MyBBtXDlEH+3Wfa6lToDXf1MElocY4sJ3w=="
+  "resolved" "https://registry.npmjs.org/@neondatabase/serverless/-/serverless-0.6.0.tgz"
+  "version" "0.6.0"
+  dependencies:
+    "@types/pg" "8.6.6"
+
 "@nodelib/fs.scandir@2.1.5":
   "integrity" "sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g=="
   "resolved" "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -879,6 +886,15 @@
     "pg-protocol" "*"
     "pg-types" "^4.0.1"
 
+"@types/pg@8.6.6":
+  "integrity" "sha512-O2xNmXebtwVekJDD+02udOncjVcMZQuTEQEMpKJ0ZRf5E7/9JJX3izhKUcUifBkyKpljyUM6BTgy2trmviKlpw=="
+  "resolved" "https://registry.npmjs.org/@types/pg/-/pg-8.6.6.tgz"
+  "version" "8.6.6"
+  dependencies:
+    "@types/node" "*"
+    "pg-protocol" "*"
+    "pg-types" "^2.2.0"
+
 "@types/qs@*":
   "integrity" "sha512-u95svzDlTysU5xecFNTgfFG5RUWu1A9P0VzgpcIiGZA9iraHOdSzcxMxQ55DyeRaGCSxQi7LxXDI4rzq/MYfdg=="
   "resolved" "https://registry.npmjs.org/@types/qs/-/qs-6.9.8.tgz"
@@ -1037,6 +1053,16 @@
   dependencies:
     "@typescript-eslint/types" "6.7.0"
     "eslint-visitor-keys" "^3.4.1"
+
+"@vercel/postgres@^0.5.0":
+  "integrity" "sha512-MFWp9SZmADqBe2x2mzEvwmGLiwOd8PVkUxYeBZx/RqdHl0bd8/1BH0zBR+zSimGyi9P/MVtZoJLdf5dkWw9m5Q=="
+  "resolved" "https://registry.npmjs.org/@vercel/postgres/-/postgres-0.5.0.tgz"
+  "version" "0.5.0"
+  dependencies:
+    "@neondatabase/serverless" "0.6.0"
+    "bufferutil" "4.0.7"
+    "utf-8-validate" "6.0.3"
+    "ws" "8.14.2"
 
 "abbrev@1":
   "integrity" "sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q=="
@@ -1358,6 +1384,13 @@
   "integrity" "sha512-a7ZpuTZU1TRtnwyCNW3I5dc0wWNC3VR9S++Ewyk2HHZdrO3CQJqSpd+95Us590V6AL7JqUAH2IwZ/398PmNFgw=="
   "resolved" "https://registry.npmjs.org/buffer-writer/-/buffer-writer-2.0.0.tgz"
   "version" "2.0.0"
+
+"bufferutil@^4.0.1", "bufferutil@4.0.7":
+  "integrity" "sha512-kukuqc39WOHtdxtw4UScxF/WVnMFVSQVKhtx3AjZJzhd0RGZZldcrfSEbVsWWe6KNH253574cq5F+wpv0G9pJw=="
+  "resolved" "https://registry.npmjs.org/bufferutil/-/bufferutil-4.0.7.tgz"
+  "version" "4.0.7"
+  dependencies:
+    "node-gyp-build" "^4.3.0"
 
 "bytes@3.1.2":
   "integrity" "sha512-/Nf7TyzTx6S3yRJObOAV7956r8cr2+Oj8AC5dt8wSP3BQAoeX58NoHyCU8P8zGkNXStjTSi6fzO6F0pBdcYbEg=="
@@ -3416,6 +3449,11 @@
   dependencies:
     "whatwg-url" "^5.0.0"
 
+"node-gyp-build@^4.3.0":
+  "integrity" "sha512-24vnklJmyRS8ViBNI8KbtK/r/DmXQMRiOMXTNz2nrTnAYUwjmEEbnnpB/+kt+yWRv73bPsSPRFddrcIbAxSiMQ=="
+  "resolved" "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.6.1.tgz"
+  "version" "4.6.1"
+
 "node-gyp@8.x":
   "integrity" "sha512-olTJRgUtAb/hOXG0E93wZDs5YiJlgbXxTwQAFHyNlRsXQnYzUaF2aGgujZbw+hR8aF4ZG/rST57bWMWD16jr9w=="
   "resolved" "https://registry.npmjs.org/node-gyp/-/node-gyp-8.4.1.tgz"
@@ -3674,7 +3712,7 @@
   "resolved" "https://registry.npmjs.org/pg-protocol/-/pg-protocol-1.6.0.tgz"
   "version" "1.6.0"
 
-"pg-types@^2.1.0":
+"pg-types@^2.1.0", "pg-types@^2.2.0":
   "integrity" "sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA=="
   "resolved" "https://registry.npmjs.org/pg-types/-/pg-types-2.2.0.tgz"
   "version" "2.2.0"
@@ -4612,6 +4650,13 @@
   dependencies:
     "punycode" "^2.1.0"
 
+"utf-8-validate@>=5.0.2", "utf-8-validate@6.0.3":
+  "integrity" "sha512-uIuGf9TWQ/y+0Lp+KGZCMuJWc3N9BHA+l/UmHd/oUHwJJDeysyTRxNQVkbzsIWfGFbRe3OcgML/i0mvVRPOyDA=="
+  "resolved" "https://registry.npmjs.org/utf-8-validate/-/utf-8-validate-6.0.3.tgz"
+  "version" "6.0.3"
+  dependencies:
+    "node-gyp-build" "^4.3.0"
+
 "util-deprecate@^1.0.1", "util-deprecate@~1.0.1":
   "integrity" "sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw=="
   "resolved" "https://registry.npmjs.org/util-deprecate/-/util-deprecate-1.0.2.tgz"
@@ -4728,6 +4773,11 @@
   dependencies:
     "imurmurhash" "^0.1.4"
     "signal-exit" "^3.0.7"
+
+"ws@8.14.2":
+  "integrity" "sha512-wEBG1ftX4jcglPxgFCMJmZ2PLtSbJ2Peg6TmpJFTbe9GZYOQCDPdMYu/Tm0/bGZkw8paZnJY45J4K2PZrLYq8g=="
+  "resolved" "https://registry.npmjs.org/ws/-/ws-8.14.2.tgz"
+  "version" "8.14.2"
 
 "xtend@^4.0.0":
   "integrity" "sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ=="
