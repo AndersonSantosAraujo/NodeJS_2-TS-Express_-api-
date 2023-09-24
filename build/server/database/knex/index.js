@@ -1,8 +1,16 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Knex = void 0;
 const knex_1 = require("knex");
+require("dotenv/config");
 const environment_knex_1 = require("./environment.knex");
+const pg_1 = __importDefault(require("pg"));
+if (process.env.NODE_ENV === "production") {
+    pg_1.default.types.setTypeParser(20, "text", parseInt);
+}
 const getEnvironment = () => {
     switch (process.env.NODE_ENV) {
         case "production":
