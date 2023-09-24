@@ -26,7 +26,7 @@ export const getAll: RequestHandler = async (
     req.query.page || 1,
     req.query.limit || 7,
     req.query.filter || "",
-    Number(req.query.id)
+    Number(req.query.id || 0)
   );
   const count = await citiesProvider.count(req.query.filter);
 

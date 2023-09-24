@@ -48,7 +48,7 @@ exports.getAllValidation = (0, middlewares_1.validation)((getSchema) => ({
 }));
 // <- Middlewares
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield cities_1.citiesProvider.getAll(req.query.page || 1, req.query.limit || 7, req.query.filter || "", Number(req.query.id));
+    const result = yield cities_1.citiesProvider.getAll(req.query.page || 1, req.query.limit || 7, req.query.filter || "", Number(req.query.id || 0));
     const count = yield cities_1.citiesProvider.count(req.query.filter);
     // Debug ->
     console.log("ID do Usuário -> ", req.headers.userID);
